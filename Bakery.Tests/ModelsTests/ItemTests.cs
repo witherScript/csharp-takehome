@@ -15,5 +15,13 @@ namespace Bakery.Tests
 
       Assert.IsNotNull(bread);
     }
+
+    [TestMethod]
+    public void Bread_CreatesInstanceOf_Bread()
+    {
+      Bread myLoaf = new Bread();
+
+      Assert.AreEqual(typeof(Bread), myLoaf.GetType());
+    }
   }
 }
