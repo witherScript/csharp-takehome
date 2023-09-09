@@ -23,5 +23,13 @@ namespace Bakery.Tests
 
       Assert.AreEqual(typeof(Bread), myLoaf.GetType());
     }
+
+    [TestMethod]
+    public void Pastry_IsA_Product()
+    {
+      IProduct pastry = new Pastry();
+
+      Assert.IsNotNull(pastry);
+    }
   }
 }
