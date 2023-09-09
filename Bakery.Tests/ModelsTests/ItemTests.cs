@@ -31,5 +31,12 @@ namespace Bakery.Tests
 
       Assert.IsNotNull(pastry);
     }
+    [TestMethod]
+    public void Pastry_CreatesInstanceOf_Pastry()
+    {
+      Pastry pastry = new Pastry();
+
+      Assert.AreEqual(typeof(Pastry), pastry.GetType());
+    }
   }
 }
