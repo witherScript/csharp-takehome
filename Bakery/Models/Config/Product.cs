@@ -1,6 +1,4 @@
 using System;
-
-
 namespace Bakery.Models.Config
 {
   public interface IProduct
