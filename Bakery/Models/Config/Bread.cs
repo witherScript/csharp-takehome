@@ -7,13 +7,11 @@ namespace Bakery.Models.Config
   {
     public string Type { get; set; }
     public string Name { get; set; }
-    public decimal Price { get; set; }
 
     public Bread()
     {
       this.Type = "Bread";
       this.Name = "Whole Wheat";
-      this.Price = 2.99M;
     }
 
     public Bread(string type, string name, decimal price )
