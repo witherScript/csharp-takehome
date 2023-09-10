@@ -6,10 +6,10 @@ A console application that simulates the checkout process at a bakery
 
 ## Setup Instructions
 
-1. Clone this project to your local machine ```bash $ git clone https://github.com/witherScript/csharp-takehome```
-2. Navigate to Bakery directory ```bash $ cd Bakery```
+1. Clone this project to your local machine ``` $ git clone https://github.com/witherScript/csharp-takehome```
+2. Navigate to Bakery directory ``` $ cd Bakery```
 3. Open terminal or powershell if on windows
-4. Use dotnet run to start the application
+4. Use ```dotnet run``` to start the application
 
 
 ### Technologies Used
