@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bakery.Models
+namespace Bakery.Models.Config
 {
   public class Bread : IProduct
   {
@@ -20,12 +20,16 @@ namespace Bakery.Models
     {
       this.Type = type;
       this.Name = name;
-      this.Price = price;
     }
 
-    public decimal GetTotal(int quantity)
+    public int GetTotal(int quantity)
     {
-      return 0.00M;
+      int pricePerLoaf = 5;
+      int pairQuantity = quantity / 3;
+      int remainingLoaves = quantity % 3;
+
+      int totalCost = (pairQuantity * 2 * pricePerLoaf) + (remainingLoaves * pricePerLoaf);
+      return totalCost;
     }
   }
 }

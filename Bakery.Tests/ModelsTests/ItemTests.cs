@@ -1,7 +1,6 @@
-using Bakery.Models;
+using Bakery.Models.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-
 
 namespace Bakery.Tests
 {
@@ -38,5 +37,6 @@ namespace Bakery.Tests
 
       Assert.AreEqual(typeof(Pastry), pastry.GetType());
     }
+    
   }
 }
