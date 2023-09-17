@@ -36,34 +36,79 @@ namespace Bakery.Models.UserInterfaceModels
       2. Pastry
     ";
 
-  public void DisplayOnStart()
-  {
-    Console.WriteLine(Welcome);
-    Console.Write(Menu);
-    Console.WriteLine("Write Selection below and press Enter: ");
-    int selection = Int32.Parse(Console.ReadLine());
-    Console.WriteLine("Write Quantity and press Enter: ");
+   public static void DisplayOnStart()
+    {
+        char complete = 'n';
+        int finalTotal = 0;
+        List<IProduct> products = new List<IProduct>();
+        string Welcome = "Welcome to Our Shop";
+        string Menu = "1. Bread\n2. Pastry";
 
-    int quantity = Int32.Parse(Console.ReadLine());
-    int total;
-    if(selection ==1)
-    {
-      Bread toBuy = new Bread();
-      total = toBuy.GetTotal(quantity);
-      DisplayOrderSummary(toBuy, quantity, total);
-    } else if (selection == 2)
-    {
-      Pastry toBuy = new Pastry();
-      total = toBuy.GetTotal(quantity);
-      DisplayOrderSummary(toBuy, quantity, total);
+        Console.WriteLine(Welcome);
+        Console.WriteLine(Menu);
+        while(complete != 'y' && complete != 'Y'){
+            Console.WriteLine("Write Selection below and press Enter: ");
+            string? input = Console.ReadLine();
+            if(string.IsNullOrEmpty(input)){
+              Console.WriteLine("Selection cannot be empty.");
+              continue;
+            }
+            int selection;
+            if(!int.TryParse(input, out selection)) {
+              Console.WriteLine("Invalid selection. Please enter a valid number.");
+              continue;
+            }
+            Console.WriteLine("Write Quantity and press Enter: ");
+            string? input2 = Console.ReadLine();
+
+            if(string.IsNullOrEmpty(input2))
+            {
+              Console.WriteLine("Quantity cannot be empty.");
+              continue;
+            }
+            int quantity;
+            if(!int.TryParse(input2, out quantity)) {
+              Console.WriteLine("Invalid quantity. Please enter a valid number.");
+              continue;
+            }
+
+
+            if(selection == 1)
+            {
+              Bread toBuy = new Bread();
+              int itemTotal = toBuy.GetTotal(quantity);
+              finalTotal += itemTotal;
+              toBuy.Quantity = quantity;
+              products.Add(toBuy);
+            }
+            else if (selection == 2)
+            {
+              Pastry toBuy = new Pastry();
+              int itemTotal = toBuy.GetTotal(quantity);
+              finalTotal += itemTotal;
+              toBuy.Quantity = quantity;
+              products.Add(toBuy);
+            }
+
+          Console.WriteLine("Does this complete your order? enter 'y' or 'Y' for yes. Press any other key to add more items.");
+          complete = Console.ReadKey().KeyChar;
+          Console.WriteLine();
+        }
+
+      DisplayOrderSummary(products.ToArray(), finalTotal);
     }
-  }
-  public void DisplayOrderSummary(IProduct item, int quantity, int total)
-  {
-    Console.WriteLine("Item: " + item.Type);
-    Console.WriteLine("Quantity: " + quantity);
-    Console.WriteLine("Total: $" + total + ".00");
-  }
+
+      public static void DisplayOrderSummary(IProduct[] items, int total)
+    {
+      foreach (var item in items)
+      {
+          int itemTotal = item.GetTotal(item.Quantity);
+          Console.WriteLine("Item: " + item.Type);
+          Console.WriteLine("Quantity: " + item.Quantity);
+          Console.WriteLine("Subtotal: $" + itemTotal + ".00");
+      }
+      Console.WriteLine("Total: $" + total + ".00");
+    }
  
   }
 }

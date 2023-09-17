@@ -7,6 +7,7 @@ namespace Bakery.Models.Config
   {
     public string Type { get; set; } = "Pastry";
     public string Name { get; set; } = "Croissant";
+    public int Quantity{get; set;}
 
     public int GetTotal(int quantity)
     {

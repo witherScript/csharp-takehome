@@ -14,7 +14,7 @@ namespace Bakery
     static void Start()
     {
       Banner newInteraction = new Banner();
-      newInteraction.DisplayOnStart();
+      Banner.DisplayOnStart();
     }
   }
 }
