@@ -1,31 +1,32 @@
-Create a C# console application for a bakery that includes the following functionality:
+# Bakery Simulator
 
-There should be two classes: one for Bread and one for Pastry.
+A console application that simulates the checkout process at a bakery
 
-When the user runs the application, they should receive a prompt with a welcome message along with the cost for both Bread and Pastry.
+### Author: Genesis Scott
 
-A user should be able to specify how many loaves of Bread and how many Pastrys they'd like.
+## Setup Instructions
 
-The application will return the total cost of the order.
+1. Clone this project to your local machine ``` $ git clone https://github.com/witherScript/csharp-takehome```
+2. Navigate to Bakery directory ``` $ cd Bakery```
+3. Open terminal or powershell if on windows
+4. Use ```dotnet run``` to start the application
 
-Pierre offers the following deal for Bread: Buy 2, get 1 free. A single loaf costs $5, then:
 
-two loaves costs $10
-three loaves cost $10
-four loaves costs $15
-five loaves cost $20
-six loaves costs $20
-seven loaves cost $25
-Can you see a pattern? Every 3rd loaf of bread is free.
-Pierre offers the following deal for Pastry: Buy 3, get 1 free. A single pastry costs $2, then:
+### Technologies Used
+1. C#
+2. .NET
+3. MSTest
+4. Bash
+5. Object oriented patterns and design
 
-two pastries costs $4
-three pastries costs $6
-four pastries costs $6
-five pastries costs $8
-six pastries costs $10
-seven pastries costs $12
-eight pastries costs $12
-Can you see a pattern? Every 4th pastry is free.
-All functionality for the business logic models should be tested.
+
+### Known Bugs
+Incomplete files make the directory nav confusing
+
+### Features in Progress
+- Authentication to simulate a "Sudo" or "Owner" mode for the end-user to access and change inventory
+- Date and time tracking: uses DateTime object to get current Date and store list of transactions per day
+
+### License Information
+Open Source License. Free to use, distribute and contribute.
 
