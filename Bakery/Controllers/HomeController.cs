@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Bakery.Models;
-using System.Threading.Tasks;
-using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,19 +17,15 @@ namespace Bakery.Controllers
         _db = db;
       }
 
-    public async Task<ActionResult> Index()
+    [HttpGet("/")]
+    public ActionResult Index()
     {
-        string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        Dictionary<string, object[]> model = new Dictionary<string, object[]>();
-        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-        if (currentUser != null)
-        {
-          Treat[] treats = _db.Treats
-                      .Where(entry => entry.User.Id == currentUser.Id)
-                      .ToArray();
-          model.Add("treats", treats);
-        }
-        return View(model);
+      var model = new Dictionary<string, List<object>>
+      {
+        { "treats", _db.Treats.Cast<object>().ToList() },
+        { "flavs", _db.Flavors.Cast<object>().ToList() }
+      };
+      return View(model);
     }
   }
 }

@@ -19,12 +19,6 @@ public class AccountsController : Controller
     _db=db;
   }
 
-  [HttpGet("/")]
-  public ActionResult Index()
-  {
-    return View();
-  }
-
   public ActionResult Register()
   {
     return View();
@@ -43,7 +37,7 @@ public class AccountsController : Controller
       IdentityResult result = await _userManager.CreateAsync(user, model.Password);
       if(result.Succeeded)
       {
-        return RedirectToAction("Index");
+        return RedirectToAction("Index", "Home");
       }
       else
       {
@@ -73,7 +67,7 @@ public class AccountsController : Controller
       Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
       if(result.Succeeded)
       {
-        return RedirectToAction("Index", "Treats");
+        return RedirectToAction("Index", "Home");
       }
       else
       {
@@ -87,7 +81,7 @@ public class AccountsController : Controller
   public async Task<ActionResult> LogOff()
   {
     await _signInManager.SignOutAsync();
-    return RedirectToAction("Index");
+    return RedirectToAction("Index", "Home");
   }
 
 }

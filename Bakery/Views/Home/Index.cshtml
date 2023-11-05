@@ -1,0 +1,44 @@
+@using Bakery.Models
+
+@if(User.Identity.IsAuthenticated)
+{
+  <p>User Options</p>
+  <div class="container">
+    <button>@Html.ActionLink("Add Flavor", "Create", "Flavors")</button>
+  </div>
+  <div class="container">
+    <button>@Html.ActionLink("Add Treat", "Create", "Treats")</button>
+  </div>
+  
+}
+else
+{ 
+  <div class="container-sm">
+    <p class="alert alert-danger">You are not logged in. You are Guest.</p>
+    <p> Click @Html.ActionLink("Here","Create","Treats") to test our authentication security.</p>
+  </div>
+}
+
+@if(Model["treats"].Count==0 && Model["flavs"].Count == 0)
+{
+  <div>
+    <p>No Content has been added.</p>
+  </div>
+}
+else
+{
+  <div class="container">
+    <h3>Treats</h3>
+    @foreach(Treat trt in Model["treats"])
+    {
+      <li>@Html.ActionLink($"{trt.Name}", "Details", "Treats", new { id = trt.TreatId })</li>
+    }
+  </div>
+  <div class="container">
+    <h3>Flavors</h3>
+    @foreach(Flavor flav in Model["flavs"])
+    {
+      <li>@Html.ActionLink($"{flav.Name}", "Details", "Flavors", new { id = flav.FlavorId })</li>
+    }
+  </div>
+}

@@ -30,30 +30,34 @@ namespace Bakery.Controllers
       return View(treats);
     }
 
-    [Authorize]
-    public ActionResult Create()
+    public ActionResult AuthError()
     {
       return View();
     }
 
-    [HttpPost]
-    public async Task<ActionResult> Create(Treat treat)
+    public async Task<ActionResult> Create()
     {
-      if(!ModelState.IsValid)
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      if(currentUser!=null)
       {
-        return View(treat);
+        return View();
       }
-      else
+      else 
       {
-        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-        treat.User = currentUser;
-        _db.Treats.Add(treat);
-        _db.SaveChanges();
-        return RedirectToAction("Index");
+        return RedirectToAction("AuthError");
       }
     }
 
+
+    [HttpPost]
+    public ActionResult Create(Treat treat)
+    {
+      _db.Treats.Add(treat);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    
     public ActionResult Details(int id)
     {
       Treat trt = _db.Treats
@@ -63,10 +67,20 @@ namespace Bakery.Controllers
       return View(trt);
     }
 
-    public ActionResult Edit(int id)
+
+    public async Task<ActionResult> Edit(int id)
     {
-      Treat trt = _db.Treats.FirstOrDefault(trt => trt.TreatId == id);
-      return View(trt);
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      if(currentUser!=null)
+      {
+        Treat trt = _db.Treats.FirstOrDefault(trt => trt.TreatId == id);
+        return View(trt);
+      }
+      else 
+      {
+        return RedirectToAction("AuthError");
+      }
     }
 
     [HttpPost]
@@ -77,10 +91,19 @@ namespace Bakery.Controllers
       return RedirectToAction("Index");
     }
 
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
-      Treat trt = _db.Treats.FirstOrDefault(trt => trt.TreatId == id);
-      return View(trt);
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      if(currentUser!=null)
+      {
+        Treat trt = _db.Treats.FirstOrDefault(trt => trt.TreatId == id);
+        return View(trt);
+      }
+      else 
+      {
+        return RedirectToAction("AuthError");
+      }
     }
 
     [HttpPost, ActionName("Delete")]
@@ -91,15 +114,27 @@ namespace Bakery.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-      public ActionResult AddFlavor(int id)
+    
+
+    public async Task<ActionResult> AddFlavor(int id)
     {
-      Treat trt = _db.Treats.FirstOrDefault(trt => trt.TreatId == id);
-      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
-      return View(trt);
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      if(currentUser!=null)
+      {
+        Treat trt = _db.Treats.FirstOrDefault(trt => trt.TreatId == id);
+        ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
+        return View(trt);
+      }
+      else 
+      {
+        return RedirectToAction("AuthError");
+      }
+      
     }
 
     [HttpPost]
-    public ActionResult AddTechnology(Treat trt, int flavId)
+    public ActionResult AddFlavor(Treat trt, int flavId)
     {
       #nullable enable
       FlavorTreat? joinEntity = _db.FlavorTreats.FirstOrDefault(join => (join.FlavorId == flavId && join.TreatId == trt.TreatId));
