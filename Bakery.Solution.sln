@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bakery", "Bakery\Bakery.csproj", "{823799B0-5C96-4E97-BF92-8651981D1A54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bakery.Tests", "Bakery.Tests\Bakery.Tests.csproj", "{35DC910B-DCBC-4542-9BE8-3F86945BED25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{823799B0-5C96-4E97-BF92-8651981D1A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823799B0-5C96-4E97-BF92-8651981D1A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823799B0-5C96-4E97-BF92-8651981D1A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823799B0-5C96-4E97-BF92-8651981D1A54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35DC910B-DCBC-4542-9BE8-3F86945BED25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35DC910B-DCBC-4542-9BE8-3F86945BED25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35DC910B-DCBC-4542-9BE8-3F86945BED25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35DC910B-DCBC-4542-9BE8-3F86945BED25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E6DCA8FB-1C90-41E1-87D0-393E3D15BD35}
+	EndGlobalSection
+EndGlobal
