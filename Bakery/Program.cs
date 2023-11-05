@@ -1,20 +1,48 @@
-﻿using System;
-using Bakery.Models.UserInterfaceModels;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Bakery.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bakery
 {
-  public class Program
+  class Program
   {
-    static void Main()
+    static void Main(string[] args)
     {
-      Start();
 
-    }
-    static void Start()
-    {
-      Banner newInteraction = new Banner();
-      Banner.DisplayOnStart();
+      WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+      builder.Services.AddControllersWithViews();
+
+      builder.Services.AddDbContext<BakeryContext>(
+                        dbContextOptions => dbContextOptions
+                          .UseMySql(
+                            builder.Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"]
+                          )
+                        )
+                      );
+
+      builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+              .AddEntityFrameworkStores<BakeryContext>()
+              .AddDefaultTokenProviders();
+
+      WebApplication app = builder.Build();
+
+      app.UseDeveloperExceptionPage();
+      app.UseHttpsRedirection();
+      app.UseStaticFiles();
+
+      app.UseRouting();
+
+      app.UseAuthentication();
+      app.UseAuthorization();
+
+      app.MapControllerRoute(
+          name: "default",
+          pattern: "{controller=Account}/{action=Index}/{id?}");
+
+      app.Run();
     }
   }
 }
