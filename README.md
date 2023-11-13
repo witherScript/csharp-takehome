@@ -16,13 +16,14 @@ A web application that stores and validates information and access privileges fo
 
 ### Setup/Installation Requirements
 1. Ensure .NET SDK and runtime are installed on your machine.
-2. Clone this repository to your local machine.
+2. Clone this repository to your local machine and checkout the "authentication" branch.
 
 ```bash
-$ git clone https://github.com/witherScript/csharp-takehome/tree/authentication
+$ git clone https://github.com/witherScript/csharp-takehome/
+$ git checkout authentication
 ```
 3. Navigate to the Bakery.Solution directory in your terminal.
-4. Touch a file in the Bakery.Solution directory called appsettings.json add the following code, replacing the uid and pwd values with your own username and password for MySQL.
+4. Touch a file in Baker.Solution/**Bakery** called appsettings.json add the following code, replacing the uid and pwd values with your own username and password for MySQL.
 
 ```bash
 $ touch appsettings.json
