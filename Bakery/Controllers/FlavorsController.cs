@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Bakery.Models;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -88,12 +90,12 @@ public class FlavorsController: Controller
   {
     string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-    if(currentUser!=null)
+    if (currentUser != null)
     {
       Flavor flav = _db.Flavors.FirstOrDefault(flav => flav.FlavorId == id);
       return View(flav);
     }
-    else 
+    else
     {
       return RedirectToAction("AuthError");
     }
@@ -109,6 +111,36 @@ public class FlavorsController: Controller
     return RedirectToAction("Index");
   }
 
+  public async Task<ActionResult> AddTreat(int id)
+    {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      if(currentUser!=null)
+      {
+        Flavor flv = _db.Flavors.FirstOrDefault(flav => flav.FlavorId == id);
+        ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
+        return View(flv);
+      }
+      else 
+      {
+        return RedirectToAction("AuthError");
+      }
+      
+    }
+
+    [HttpPost]
+    public ActionResult AddTreat(Treat trt, int flavId)
+    {
+      #nullable enable
+      FlavorTreat? joinEntity = _db.FlavorTreats.FirstOrDefault(join => (join.TreatId == trt.TreatId && join.FlavorId == flavId));
+      #nullable disable
+      if(joinEntity == null && flavId != 0)
+      {
+        _db.FlavorTreats.Add(new FlavorTreat { FlavorId = flavId, TreatId = trt.TreatId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = flavId });
+    }
   [HttpPost]
   public async Task<ActionResult> DeleteJoin(int joinId)
   {

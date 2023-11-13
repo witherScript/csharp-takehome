@@ -134,17 +134,17 @@ namespace Bakery.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddFlavor(Treat trt, int flavId)
+    public ActionResult AddFlavor(Flavor flav, int treatId)
     {
       #nullable enable
-      FlavorTreat? joinEntity = _db.FlavorTreats.FirstOrDefault(join => (join.FlavorId == flavId && join.TreatId == trt.TreatId));
+      FlavorTreat? joinEntity = _db.FlavorTreats.FirstOrDefault(join => (join.FlavorId == flav.FlavorId && join.TreatId == treatId));
       #nullable disable
-      if(joinEntity == null && flavId != 0)
+      if(joinEntity == null && treatId != 0)
       {
-        _db.FlavorTreats.Add(new FlavorTreat { FlavorId = flavId, TreatId = trt.TreatId });
+        _db.FlavorTreats.Add(new FlavorTreat { FlavorId = flav.FlavorId, TreatId = treatId });
         _db.SaveChanges();
       }
-      return RedirectToAction("Details", new { id = trt.TreatId });
+      return RedirectToAction("Details", new { id = treatId });
     }
 
     [HttpPost]
